@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MainViewController.h
 //  babyry-client
 //
 //  Created by Kosuke Takami on 2014/01/14.
@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface MainViewController : UIViewController
+{
+    @private
+    UIWebView *mainWebView;
+}
 
 @end
