@@ -36,6 +36,13 @@
     mainWebView.frame = self.view.bounds;
     mainWebView.delegate = self;
     mainWebView.scalesPageToFit = YES;
+    
+    for (id subview in mainWebView.subviews) {
+        if ([[subview class] isSubclassOfClass: [UIScrollView class]]) {
+            ((UIScrollView *)subview).bounces = NO;
+        }
+    }
+    
     [self.view addSubview:mainWebView];
     
     NSURL *url = [NSURL URLWithString:@"http://www3080uo.sakura.ne.jp"];
