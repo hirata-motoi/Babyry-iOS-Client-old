@@ -31,7 +31,6 @@
     AppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.mainViewController = self;
     
-    NSLog(@"hoge");
     mainWebView = [[UIWebView alloc] init];
     mainWebView.frame = self.view.bounds;
     mainWebView.delegate = self;
@@ -45,7 +44,7 @@
     
     [self.view addSubview:mainWebView];
     
-    NSURL *url = [NSURL URLWithString:@"http://www3080uo.sakura.ne.jp"];
+    NSURL *url = [NSURL URLWithString:@"https://babyry.jp"];
     NSURLRequest *req = [NSURLRequest requestWithURL:url];
     
     [mainWebView loadRequest:req];

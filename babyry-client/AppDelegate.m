@@ -19,6 +19,9 @@
     self.window.rootViewController = self.mainViewController;
     [self.window makeKeyAndVisible];
     
+    [[UIApplication sharedApplication]registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+    
     return YES;
 }
 							
@@ -47,6 +50,25 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *deviceTokenValue = [NSString stringWithFormat:@"%@", deviceToken];
+    NSLog(@"%@", deviceTokenValue);
+    NSString *deviceTokenReplace = [[[deviceTokenValue stringByReplacingOccurrencesOfString:@" " withString:@""]stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@"" ];
+    NSLog(@"%@", deviceTokenReplace);
+    [self postDeviceToken:deviceTokenReplace];
+}
+
+- (void)postDeviceToken:(NSString *)deviceToken {
+    NSString *_url = @"https://babyry.jp/test?devicetoken=";
+    NSString *url = [NSString stringWithFormat:@"%@%@",_url,deviceToken];
+    NSLog(@"%@", url);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString: url]];
+    NSData *jsonData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSLog(@"%@", jsonData);
 }
 
 @end
